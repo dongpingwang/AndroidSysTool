@@ -2,6 +2,7 @@ package com.wdp.sys
 
 import android.content.Context
 import android.util.Log
+import com.wdp.sys.util.ContextHolder
 
 /**
  * 作者：王东平
@@ -17,12 +18,13 @@ object SysUtils {
     val deviceCtrl by lazy { DeviceCtrl() }
 
     fun init(ctx: Context) {
+        ContextHolder.setContext(ctx)
         Log.d(TAG, "init: $VERSION")
     }
 
 
     fun deInit() {
-        Log.d(TAG, "deInit: $VERSION")
+        Log.d(TAG, "deInit")
     }
 
 }
