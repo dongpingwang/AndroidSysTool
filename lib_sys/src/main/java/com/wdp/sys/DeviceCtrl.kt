@@ -1,5 +1,7 @@
 package com.wdp.sys
 
+import android.content.Intent
+import com.wdp.sys.util.ContextHolder
 import com.wdp.sys.util.SystemPropertiesProxy
 
 /**
@@ -21,7 +23,12 @@ class DeviceCtrl {
         SystemPropertiesProxy.set("sys.powerctl", "reboot")
     }
 
-    fun reset() {
-
+    fun resetFactory() {
+        ContextHolder.context().sendBroadcast(Intent("android.intent.action.FACTORY_RESET").apply {
+            addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
+            putExtra("android.intent.extra.REASON", "MasterClearConfirm")
+            putExtra("android.intent.extra.WIPE_EXTERNAL_STORAGE", true)
+            setPackage("android")
+        })
     }
 }

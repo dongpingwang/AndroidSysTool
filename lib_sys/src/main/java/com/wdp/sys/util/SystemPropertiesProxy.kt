@@ -11,29 +11,29 @@ import android.annotation.SuppressLint
 @SuppressLint("PrivateApi", "DiscouragedPrivateApi")
 object SystemPropertiesProxy {
 
-    fun getString(key: String, def: String? = null): String? {
-        return get(key, def)
+    fun getString(key: String, defValue: String? = null): String? {
+        return get(key, defValue)
     }
 
-    fun getInt(key: String, def: Int): Int? {
-        return get(key, def)
+    fun getInt(key: String, defValue: Int): Int? {
+        return get(key, defValue)
     }
 
-    fun getLong(key: String, def: Long): Long? {
-        return get(key, def)
+    fun getLong(key: String, defValue: Long): Long? {
+        return get(key, defValue)
     }
 
-    fun getBoolean(key: String, def: Boolean): Boolean? {
-        return get(key, def)
+    fun getBoolean(key: String, defValue: Boolean): Boolean? {
+        return get(key, defValue)
     }
 
-    private inline fun <reified T> get(key: String, def: T?): T? {
+    private inline fun <reified T> get(key: String, defValue: T?): T? {
         return kotlin.runCatching {
             val clazz = Class.forName("android.os.SystemProperties")
             val method = clazz.getDeclaredMethod("get", String::class.java, T::class.java)
             method.isAccessible = true
-            method.invoke(clazz, key, def) as T
-        }.also { it.exceptionOrNull()?.printStackTrace() }.getOrDefault(def)
+            method.invoke(clazz, key, defValue) as T
+        }.also { it.exceptionOrNull()?.printStackTrace() }.getOrDefault(defValue)
     }
 
 

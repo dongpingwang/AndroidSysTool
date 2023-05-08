@@ -3,6 +3,8 @@ package com.wdp.sys
 import android.content.Context
 import android.util.Log
 import com.wdp.sys.util.ContextHolder
+import com.wdp.sys.util.SettingsUtil
+import com.wdp.sys.util.SystemPropertiesProxy
 
 /**
  * 作者：王东平
@@ -17,11 +19,16 @@ object SysUtils {
 
     val deviceCtrl by lazy { DeviceCtrl() }
 
+    val deviceInfo by lazy { DeviceInfo() }
+
+    val systemProp by lazy { SystemPropertiesProxy }
+
+    val settings by lazy { SettingsUtil }
+
     fun init(ctx: Context) {
         ContextHolder.setContext(ctx)
         Log.d(TAG, "init: $VERSION")
     }
-
 
     fun deInit() {
         Log.d(TAG, "deInit")

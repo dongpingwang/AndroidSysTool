@@ -13,7 +13,7 @@ class DemoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        SysUtils.init()
+        SysUtils.init(this)
     }
 
     override fun onTerminate() {

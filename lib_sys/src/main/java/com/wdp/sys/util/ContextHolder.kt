@@ -2,6 +2,7 @@ package com.wdp.sys.util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import java.lang.IllegalStateException
 
 /**
  * 作者：王东平
@@ -19,8 +20,16 @@ object ContextHolder {
     }
 
     fun getContext(): Context {
+        checkInit()
         return mContext
     }
 
     fun context() = getContext()
+
+
+    private fun checkInit() {
+        if (!this::mContext.isInitialized) {
+            throw IllegalStateException("must init please，do you call **SysUtils.init**?")
+        }
+    }
 }
