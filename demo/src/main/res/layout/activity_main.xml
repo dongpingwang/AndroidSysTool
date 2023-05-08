@@ -1,18 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_shutdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="关机" />
+
+        <Button
+            android:id="@+id/btn_reboot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="重启" />
+
+        <Button
+            android:id="@+id/btn_reset_factory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="恢复出厂设置" />
+
+
+        <TextView
+            android:id="@+id/txt_sn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="sn" />
+
+        <TextView
+            android:id="@+id/txt_rom_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="rom version" />
+
+        <TextView
+            android:id="@+id/txt_read_prop_wdp_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="read prop:prop_wdp_1" />
+
+        <Button
+            android:id="@+id/btn_write_prop_wdp_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="write prop:prop_wdp_1:NB" />
+
+
+        <TextView
+            android:id="@+id/txt_read_settings_wdp_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="read settings:settings_wdp_1" />
+
+        <Button
+            android:id="@+id/btn_write_settings_wdp_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="write settings:settings_wdp_1:NB" />
+    </LinearLayout>
+
+</ScrollView>

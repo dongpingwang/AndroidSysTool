@@ -1,4 +1,4 @@
-package com.wdp.sys.util
+package com.wdp.sys
 
 import android.content.ContentResolver
 import android.database.ContentObserver
@@ -8,9 +8,11 @@ import android.util.Log
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**
- * @author dongping.wang
- * @date 2022/2/16 15:45
- * @description Settings工具类
+ * 作者：王东平
+ * 功能：
+ * 说明：1.申请权限<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+ *      2.读取不需要系统权限，**写入需要系统权限**
+ * 版本：1.0.1
  */
 object SettingsUtil {
 
@@ -61,7 +63,7 @@ object SettingsUtil {
             return getFloat(key, -1.0F)
         }
 
-        fun getString(key: String, defValue: String?): String?
+        fun getString(key: String, defValue: String? = null): String?
 
         fun getBoolean(key: String, defValue: Boolean): Boolean {
             return getInt(key, if (defValue) 1 else 0) == 1
@@ -81,32 +83,28 @@ object SettingsUtil {
         fun onDataChanged(key: String, newValue: String?) {}
     }
 
-    abstract class SettingsEditor : Editor {
+    @Suppress("LeakingThis")
+    abstract class SettingsEditor : Editor, ContentObserver(null) {
         private val onDataChangeListeners = CopyOnWriteArrayList<OnDataChangeListener>()
-        private val uri: Uri by lazy { getUri() }
-        internal val contentResolver: ContentResolver by lazy { ContextHolder.context().contentResolver }
-        private val contentObserver: ContentObserver by lazy {
-            object : ContentObserver(null) {
-                override fun onChange(selfChange: Boolean, uri: Uri?) {
-                    super.onChange(selfChange, uri)
-                    uri?.apply {
-                        val key = uri.pathSegments[1]
-                        val value = getString(key, null)
-                        Log.d(TAG, "onChange: $uri --> $value")
-                        onDataChangeListeners.forEach {
-                            it.onDataChanged(this@SettingsEditor, uri.pathSegments[1])
-                            it.onDataChanged(key, value)
-                        }
-                    }
+        protected val contentResolver: ContentResolver = ContextHolder.context().contentResolver
+        override fun onChange(selfChange: Boolean, _uri: Uri?) {
+            super.onChange(selfChange, _uri)
+            _uri?.let { uri ->
+                val key = uri.pathSegments[1]
+                val value = getString(key, null)
+                Log.d(TAG, "onChange: $uri --> $value")
+                onDataChangeListeners.forEach {
+                    it.onDataChanged(this, key)
+                    it.onDataChanged(key, value)
                 }
             }
         }
 
         init {
-            contentResolver.registerContentObserver(uri, true, contentObserver)
+            contentResolver.registerContentObserver(getUri(), true, this)
         }
 
-        internal abstract fun getUri(): Uri
+        protected abstract fun getUri(): Uri
 
         override fun registerOnDataChangeListener(listener: OnDataChangeListener) {
             if (!onDataChangeListeners.contains(listener)) {

@@ -8,7 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "ccom.wdp.sys.demo"
+        applicationId "com.wdp.sys.demo"
         minSdk 21
         targetSdk 33
         versionCode 1

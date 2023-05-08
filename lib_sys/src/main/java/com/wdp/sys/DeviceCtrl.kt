@@ -1,13 +1,12 @@
 package com.wdp.sys
 
 import android.content.Intent
-import com.wdp.sys.util.ContextHolder
-import com.wdp.sys.util.SystemPropertiesProxy
 
 /**
  * 作者：王东平
  * 功能：
  * 说明：
+ *    1.<uses-permission android:name="android.permission.MASTER_CLEAR"/> 需要系统权限
  * 版本：1.0.0
  */
 class DeviceCtrl {

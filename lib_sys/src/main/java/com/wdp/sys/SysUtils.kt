@@ -2,9 +2,6 @@ package com.wdp.sys
 
 import android.content.Context
 import android.util.Log
-import com.wdp.sys.util.ContextHolder
-import com.wdp.sys.util.SettingsUtil
-import com.wdp.sys.util.SystemPropertiesProxy
 
 /**
  * 作者：王东平

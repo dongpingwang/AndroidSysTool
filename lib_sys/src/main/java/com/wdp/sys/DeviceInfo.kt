@@ -1,7 +1,5 @@
 package com.wdp.sys
 
-import com.wdp.sys.util.SystemPropertiesProxy
-
 /**
  * 作者：王东平
  * 功能：
@@ -19,6 +17,11 @@ class DeviceInfo {
     }
 
     fun getVersion(): String? {
-        return SystemPropertiesProxy.getString("ro.firmware.version")
+        var version = SystemPropertiesProxy.getString("ro.firmware.version")
+        if (version?.isNotEmpty() == true) {
+            return version
+        }
+        version = SystemPropertiesProxy.getString("ro.product.version")
+        return version
     }
 }
